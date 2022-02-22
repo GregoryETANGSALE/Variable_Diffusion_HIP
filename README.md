@@ -1,6 +1,6 @@
 # Variable_Diffusion_HIP
 
-# Scripts for solving variable diffusion problems
+Scripts for solving variable diffusion problems
 
 # Contents
 # 1- HIP_homogeneous (short example of the poisson problem)
