@@ -19,6 +19,8 @@ Author: Grégory ETANGSALE, University of La Réunion
 
 from ngsolve import *
 from netgen.geom2d import unit_square
+from netgen.geom2d import SplineGeometry
+import time
 import math
 
 ngsglobals.msg_level = 1
@@ -167,5 +169,7 @@ while i < len(store) :
     print("%6d & %2.1e & %2.1f & %s \\\ " % \
           (store[i][1], store[i][2], rate_L2, store[i][3]))
     i =  i+1
+
+
 
 
