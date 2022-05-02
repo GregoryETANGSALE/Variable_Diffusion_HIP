@@ -6,7 +6,7 @@ Heterogeneous and Anisotropic Diffusion problem
 div(kappa * grad(u)) = f    in Omega
            u = 0    on Gamma
 
-kappa : Homogeneous dispersion tensor
+kappa : Heterogeneous dispersion tensor
 f     : Source term
 
 Copyright ©
@@ -19,8 +19,9 @@ Author: Grégory ETANGSALE, University of La Réunion
 # Import Netgen/NGSolve and Python modules
 
 from ngsolve import *
-from netgen.geom2d import unit_square
+from netgen.geom2d import SplineGeometry
 import math
+import time
 
 ngsglobals.msg_level = 1
 
@@ -37,7 +38,7 @@ def part1(geom):
              (nums1[3], nums1[0], "gammaD" , 1, 0)]
 
     for p0,p1,bc,left,right in lines:
-        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right,maxh=hmax)
+        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right)
 
     geom.SetMaterial(1, "domain1")
     return (geom,nums1)
@@ -50,7 +51,7 @@ def part2(geom,nums1):
              (nums2[1], nums1[2], "interface", 2,3)]
 
     for p0,p1,bc,left,right in lines:
-        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right,maxh=hmax)
+        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right)
 
     geom.SetMaterial(2, "domain2")
     return (geom,nums2)
@@ -63,7 +64,7 @@ def part3(geom,nums1,nums2):
              (nums3[1], nums1[2], "interface", 3,4)]
 
     for p0,p1,bc,left,right in lines:
-        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right,maxh=hmax)
+        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right)
 
     geom.SetMaterial(3, "domain3")
     return (geom,nums3)
@@ -75,7 +76,7 @@ def part4(geom,nums1,nums3):
              (nums4[0], nums1[3], "gammaD", 4,0)]
 
     for p0,p1,bc,left,right in lines:
-        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right,maxh=hmax)
+        geom.Append( ["line", p0, p1], bc=bc, leftdomain=left, rightdomain=right)
 
     geom.SetMaterial(4, "domain4")
     return (geom)
@@ -232,5 +233,7 @@ while i < len(store) :
     print("%6d & %2.1e & %2.1f & %s \\\ " % \
           (store[i][1], store[i][2], rate_L2, store[i][3]))
     i =  i+1
+
+
 
 
